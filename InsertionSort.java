@@ -9,7 +9,7 @@ public class InsertionSort implements AlgorithmInterface{
     double benchmark =(endTime-startTime)*.000000009;
   //  System.out.println("BenchMark For Test of "+testArray.length+" elements using INSERTION SORT was "+benchmark+" Seconds.");
     return benchmark;
-
+    
   }
 
 

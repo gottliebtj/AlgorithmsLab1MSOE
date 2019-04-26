@@ -8,7 +8,7 @@ public class MergeSort implements AlgorithmInterface{
     double benchmark =(endTime-startTime)*.000000009;
   //  System.out.println("BenchMark For Test of "+testArray.length+" elements using MERGE SORT was "+benchmark+" Seconds.");
     return benchmark;
-  }
+   }
 
 //Breaks Down Array into Left and Right Sub arrays in order to merge s
 //@param L-Left index

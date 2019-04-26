@@ -5,6 +5,7 @@ import java.util.List;
 
 public class main {
 
+//these get resued errytime yo even tho we in java we still hardcore.
   public static int[] tenArray = new int[10];
   public static int[] hundredArray = new int[100];
   public static int[] thousandArray = new int[1000];
@@ -15,47 +16,58 @@ public class main {
 
 //Benchmark Containers
   public static ArrayList<Double> tenMerge = new ArrayList<Double>();
-  public static ArrayList<Double> tenInsert = new ArrayList<Double>();
+  public static ArrayList<Double> tenThreadedMerge = new ArrayList<Double>();
   public static ArrayList<Double> hundredMerge = new ArrayList<Double>();
-  public static ArrayList<Double> hundredInsert = new ArrayList<Double>();
+  public static ArrayList<Double> hundredThreadedMerge = new ArrayList<Double>();
   public static ArrayList<Double> thousandMerge = new ArrayList<Double>();
-  public static ArrayList<Double> thousandInsert = new ArrayList<Double>();
+  public static ArrayList<Double> thousandThreadedMerge = new ArrayList<Double>();
   public static ArrayList<Double> tenthousandMerge = new ArrayList<Double>();
-  public static ArrayList<Double> tenthousandInsert = new ArrayList<Double>();
+  public static ArrayList<Double> tenthousandThreadedMerge = new ArrayList<Double>();
   public static ArrayList<Double> hundredThousandMerge = new ArrayList<Double>();
-  public static ArrayList<Double> hundredThousandInsert = new ArrayList<Double>();
+  public static ArrayList<Double> hundredThousandThreadedMerge = new ArrayList<Double>();
   public static ArrayList<Double> fiveHundredThousandMerge = new ArrayList<Double>();
-  public static ArrayList<Double> fiveHundredThousandInsert = new ArrayList<Double>();
-
+  public static ArrayList<Double> fiveHundredThousandThreadedMerge = new ArrayList<Double>();
+  public static ArrayList<Double> tenQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> tenThreadedQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> hundredQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> hundredThreadedQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> thousandQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> thousandThreadedQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> tenThousandQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> tenThousandThreadedQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> hundredThousandQuickSort = new ArrayList<Double>();
+  public static ArrayList<Double> hundredThousandThreadedQuickSort = new ArrayList<Double>();
 
 
 
    public static void main(String[] args) {
 
-     int NUM_TRIALS = 1000;
+     int NUM_TRIALS = 5000;
      for (int i=0;i<NUM_TRIALS;i++ ) {
      System.out.println("Running Trial: "+ i);
      runAllMergeSortTests();
-     runAllInsertionSortTests();
+     runAllParallelMergeSortTests();
+     runAllQuickSortTests();
+     runAllParallelQuickSortTests();
      //some magic to clear the console
      System.out.print("\033[H\033[2J");
-
    }
-   printAveragesOfTests(NUM_TRIALS);
+   System.out.println(tenThreadedMerge);
+    printAveragesOfTests(NUM_TRIALS);
    }
 
 
-   public static void runAllInsertionSortTests(){
-     double benchmarkTen = insertionSortTest(tenArray);
-     tenInsert.add(benchmarkTen);
-     double benchmarkHundred = insertionSortTest(hundredArray);
-     hundredInsert.add(benchmarkHundred);
-     double benchmarkThousand = insertionSortTest(thousandArray);
-     thousandInsert.add(benchmarkThousand);
-     double benchmarkTenThousand = insertionSortTest(tenThousandArray);
-     tenthousandInsert.add(benchmarkTenThousand);
-     double benchmarkHundredThousand = insertionSortTest(hundredThousandArray);
-     hundredThousandInsert.add(benchmarkHundredThousand);
+   public static void runAllParallelMergeSortTests(){
+     double benchmarkTen = parallelMergeSortTest(tenArray);
+     tenThreadedMerge.add(benchmarkTen);
+     double benchmarkHundred = parallelMergeSortTest(hundredArray);
+     hundredThreadedMerge.add(benchmarkHundred);
+     double benchmarkThousand = parallelMergeSortTest(thousandArray);
+     thousandThreadedMerge.add(benchmarkThousand);
+     double benchmarkTenThousand = parallelMergeSortTest(tenThousandArray);
+     tenthousandThreadedMerge.add(benchmarkTenThousand);
+     double benchmarkHundredThousand = parallelMergeSortTest(hundredThousandArray);
+     hundredThousandThreadedMerge.add(benchmarkHundredThousand);
      //double benchmarkFiveHundredThousand = insertionSortTest(fiveHundredThousandArray);
      //fiveHundredThousandInsert.add(benchmarkFiveHundredThousand);
 
@@ -74,47 +86,71 @@ public class main {
      tenthousandMerge.add(benchmarkTenThousand);
      double benchmarkHundredThousand = mergeSortTest(hundredThousandArray);
      hundredThousandMerge.add(benchmarkHundredThousand);
-  //   double benchmarkFiveHundredThousand = mergeSortTest(fiveHundredThousandArray);
-  //   fiveHundredThousandMerge.add(benchmarkFiveHundredThousand);
-     //double benchmarka = mergeSortTest(millionArray);
+
    }
-   /**Didnt need for lab but developed anyway cause i cant read.
-   public static void runAllMergeInsertionSortTests(){
-     double benchmarkTen = mergeInsertionSortTest(tenArray);
-     double benchmarkHundred = mergeInsertionSortTest(hundredArray);
-     double benchmarkThousand = mergeInsertionSortTest(thousandArray);
-     double benchmarkTenThousand = mergeInsertionSortTest(tenThousandArray);
-     double benchmarkHundredThousand = mergeInsertionSortTest(hundredThousandArray);
-     double benchmarkFiveHundredThousand = mergeInsertionSortTest(fiveHundredThousandArray);
 
-     //double benchmarka = mergeInsertionSortTest(millionArray);
+   public static void runAllQuickSortTests(){
+     double benchmarkTen = quickSortTest(tenArray);
+     tenQuickSort.add(benchmarkTen);
+     double benchmarkHundred = quickSortTest(hundredArray);
+     hundredQuickSort.add(benchmarkHundred);
+     double benchmarkThousand = quickSortTest(thousandArray);
+     thousandQuickSort.add(benchmarkThousand);
+     double benchmarkTenThousand = quickSortTest(tenThousandArray);
+     tenThousandQuickSort.add(benchmarkTenThousand);
+     double benchmarkHundredThousand = quickSortTest(hundredThousandArray);
+     hundredThousandQuickSort.add(benchmarkHundredThousand);
+
    }
- */
+
+   public static void runAllParallelQuickSortTests(){
+     double benchmarkTen = parallelQuickSortTest(tenArray);
+     tenThreadedQuickSort.add(benchmarkTen);
+     double benchmarkHundred = parallelQuickSortTest(hundredArray);
+     hundredThreadedQuickSort.add(benchmarkHundred);
+     double benchmarkThousand = parallelQuickSortTest(thousandArray);
+     thousandThreadedQuickSort.add(benchmarkThousand);
+     double benchmarkTenThousand = parallelQuickSortTest(tenThousandArray);
+     tenThousandThreadedQuickSort.add(benchmarkTenThousand);
+     double benchmarkHundredThousand = parallelQuickSortTest(hundredThousandArray);
+     hundredThousandThreadedQuickSort.add(benchmarkHundredThousand);
+
+   }
 
 
+//Single test for a merge sort.
    public static double mergeSortTest(int[] testArray){
      randomlyPopulateArr(testArray);
      MergeSort mergeSort= new MergeSort();
      double benchmark = mergeSort.runBenchMark(testArray);
      return benchmark;
-
-
    }
 
-   public static double insertionSortTest(int[] testArray){
+//single test for a multithreaded merge sort.
+   public static double parallelMergeSortTest(int[] testArray){
      randomlyPopulateArr(testArray);
-     InsertionSort insertionSortTest = new InsertionSort();
-     double benchmark = insertionSortTest.runBenchMark(testArray);
+     ThreadedMergeSort threadedMergeSortTest = new ThreadedMergeSort();
+     double benchmark = threadedMergeSortTest.runBenchMark(testArray);
      return benchmark;
    }
 
-   public static double mergeInsertionSortTest(int[] testArray){
-     randomlyPopulateArr(testArray);
-     MergeInsertionSort mergeInsertionSortTest = new MergeInsertionSort();
-     double benchmark = mergeInsertionSortTest.runBenchMark(testArray);
-     return benchmark;
-   }
+   //single test for  quicksort.
+      public static double quickSortTest(int[] testArray){
+        randomlyPopulateArr(testArray);
+        QuickSort quickSortTest = new QuickSort();
+        double benchmark = quickSortTest.runBenchMark(testArray);
+        return benchmark;
+      }
 
+      //single test for  quicksort.
+         public static double parallelQuickSortTest(int[] testArray){
+           randomlyPopulateArr(testArray);
+           ThreadedQuickSort tquickSortTest = new ThreadedQuickSort();
+           double benchmark = tquickSortTest.runBenchMark(testArray);
+           return benchmark;
+         }
+
+//populates
    public static void randomlyPopulateArr(int[] arr){
      int max = 1000;
      int min = 1;
@@ -133,11 +169,23 @@ public class main {
      double d = calculateAverage(tenthousandMerge);
      double e = calculateAverage(hundredThousandMerge);
 
-     double g = calculateAverage(tenInsert);
-     double h = calculateAverage(hundredInsert);
-     double i = calculateAverage(thousandInsert);
-     double j = calculateAverage(tenthousandInsert);
-     double k = calculateAverage(hundredThousandInsert);
+     double g = calculateAverage(tenThreadedMerge);
+     double h = calculateAverage(hundredThreadedMerge);
+     double i = calculateAverage(thousandThreadedMerge);
+     double j = calculateAverage(tenthousandThreadedMerge);
+     double k = calculateAverage(hundredThousandThreadedMerge);
+
+     double l = calculateAverage(tenQuickSort);
+     double m = calculateAverage(hundredQuickSort);
+     double n = calculateAverage(thousandQuickSort);
+     double o = calculateAverage(tenThousandQuickSort);
+     double p = calculateAverage(hundredThousandQuickSort);
+
+     double q = calculateAverage(tenThreadedQuickSort);
+     double r = calculateAverage(hundredThreadedQuickSort);
+     double s = calculateAverage(thousandThreadedQuickSort);
+     double t = calculateAverage(tenThousandThreadedQuickSort);
+     double u = calculateAverage(hundredThousandThreadedQuickSort);
 
      System.out.println("Total Trials: "+trials);
      System.out.println("|# elements | Algorithm | Average Time |");
@@ -147,16 +195,26 @@ public class main {
      System.out.println("|    1000   | MergeSort | "+c+"|");
      System.out.println("|    10000  | MergeSort | "+d+"|");
      System.out.println("|    100000 | MergeSort | "+e+"|");
-     System.out.println("|    10     | InsertSort| "+g+"|");
-     System.out.println("|    100    | InsertSort| "+h+"|");
-     System.out.println("|    1000   | InsertSort| "+i+"|");
-     System.out.println("|    10000  | InsertSort| "+j+"|");
-     System.out.println("|    100000 | InsertSort| "+k+"|");
+     System.out.println("-----------------------------------");
+     System.out.println("|    10     | ThreadedMS| "+g+"|");
+     System.out.println("|    100    | ThreadedMS| "+h+"|");
+     System.out.println("|    1000   | ThreadedMS| "+i+"|");
+     System.out.println("|    10000  | ThreadedMS| "+j+"|");
+     System.out.println("|    100000 | ThreadedMS| "+k+"|");
+     System.out.println("-----------------------------------");
+     System.out.println("|    10     | QuickSort | "+l+"|");
+     System.out.println("|    100    | QuickSort | "+m+"|");
+     System.out.println("|    1000   | QuickSort | "+n+"|");
+     System.out.println("|    10000  | QuickSort | "+o+"|");
+     System.out.println("|    100000 | QuickSort | "+p+"|");
+     System.out.println("-----------------------------------");
+     System.out.println("|    10     | ThreadedQS| "+q+"|");
+     System.out.println("|    100    | ThreadedQS| "+r+"|");
+     System.out.println("|    1000   | ThreadedQS| "+s+"|");
+     System.out.println("|    10000  | ThreadedQS| "+t+"|");
+     System.out.println("|    100000 | ThreadedQS| "+u+"|");
      System.out.println("-----------------------------------");
      System.out.println("Tests Executed Successfully");
-
-
-
 
 
    }
@@ -171,9 +229,6 @@ public class main {
   }
   return sum;
 }
-
-
-
 
 
 
